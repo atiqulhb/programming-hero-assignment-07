@@ -13,20 +13,29 @@ export default async function Home() {
   
 
   return (
-    <div>
+    <div className="w-[80vw] mx-auto flex flex-col gap-10">
       <Hero/>
-      <section className="w-[80vw] mx-auto">
-        <h2>▲ আজ দাম বেড়েছে</h2>
+      <section className="">
+        <h2><span className="text-error">▲</span> আজ দাম বেড়েছে</h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(360px,1fr))] gap-4">
           {sixOfPriceRisenProducts.map((product) => (
             <ProductCard key={product.id} product={product}/>
           ))}
         </div>
       </section>
-      <section className="w-[80vw] mx-auto">
-        <h2>▼ আজ দাম কমেছে</h2>
+      <section className="">
+        <h2><span className="text-success">▼</span> আজ দাম কমেছে</h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(360px,1fr))] gap-4">
           {sixOfPriceDroppedProducts.map((product) => (
+            <ProductCard key={product.id} product={product}/>
+          ))}
+        </div>
+      </section>
+      <section>
+        <h2>সব পণ্য</h2>
+        <span>মোট {allProducts.length}টি পণ্য দেখানো হচ্ছে</span>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(360px,1fr))] gap-4">
+          {allProducts.map((product) => (
             <ProductCard key={product.id} product={product}/>
           ))}
         </div>

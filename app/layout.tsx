@@ -30,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Nav/>
         <PriceTicker/>
         {children}
-        {/* <Footer/> */}
+        <Footer/>
       </body>
     </html>
   );

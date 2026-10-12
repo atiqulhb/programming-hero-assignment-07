@@ -9,7 +9,7 @@ export default function Hero() {
         year: "numeric"
     })
   return (
-    <div className='w-[80vw] mx-auto flex px-4 py-10 rounded-3xl border border-base-300 bg-base-100'>
+    <div className='w-[80vw] mx-auto flex px-4 py-10 rounded-3xl border border-base-300 bg-base-100 my-10'>
         <div className='flex-2'>
           <span className='px-3 py-1 text-primary bg-primary/10 rounded-full'>{todaysDateInBengali}</span>
           <h1 className='text-base-content'>আজকের বাজারের দাম এক নজরে</h1>

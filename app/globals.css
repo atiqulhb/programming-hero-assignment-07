@@ -3,11 +3,14 @@
 :root {
   --primary-color: #05893E;
   --primary-content: #F3FBF4;
+  
   --success-color: #1A9951;
   --error-color: #D03739;
 
   --base-100: #FAFCFA;
+  --base-200: #F0F5F0;
   --base-300: #E1E8E1;
+
   --base-content: #1D271F;
 
   --background: #ffffff;
@@ -17,10 +20,14 @@
 @theme inline {
   --color-primary: var(--primary-color);
   --color-primary-content: var(--primary-content);
+
   --color-success: var(--success-color);
   --color-error: var(--error-color);
+
   --color-base-100: var(--base-100);
+  --color-base-200: var(--base-200);
   --color-base-300: var(--base-300);
+
   --color-base-content: var(--base-content);
 
   --color-background: var(--background);

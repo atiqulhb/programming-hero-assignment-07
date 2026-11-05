@@ -1,7 +1,8 @@
 import Hero from "@/components/Hero"
 import ProductCard from '@/components/ProductCard'
+import type { Product } from '@/lib/types'
 
-async function getProducts() {
+async function getProducts(): Promise<Product[]> {
   const res = await fetch('https://openapi.programming-hero.com/api/bazardor/products')
   return await res.json()
 }

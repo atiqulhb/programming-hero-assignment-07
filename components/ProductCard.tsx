@@ -1,8 +1,13 @@
 import Link from 'next/link'
+import type { Product } from '@/lib/types'
 
-export default function ProductCard({ product }) {
+type Props = {
+    product: Product
+}
+
+export default function ProductCard({ product }: Props) {
   return (
-    <Link href={`/categories/${product.slug}`} className="border border-base-300 rounded-2xl p-4 flex flex-col gap-3">
+    <Link href={`/product/${product.id}`} className="border bg-base-100 border-base-300 rounded-2xl p-4 flex flex-col gap-3">
         <div className="flex gap-3">
             <span className="w-12 h-12 flex items-center justify-center bg-base-200 rounded-xl text-2xl">{product.image}</span>
             <div>

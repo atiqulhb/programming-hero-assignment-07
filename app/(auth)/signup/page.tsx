@@ -2,9 +2,10 @@
 
 import { signUp } from "@/lib/auth-client";
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
+import React, { FormEvent } from "react";
 
 export default function Basic() {
-  const onSubmit = async(e) => {
+  const onSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());

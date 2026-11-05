@@ -2,18 +2,29 @@ import ProductGrid from '@/components/ProductGridForCategories'
 import ProductCard from "@/components/ProductCard"
 import {Label, ListBox, Select} from "@heroui/react"
 
-async function getCategoryInformation(category) {
+import type { Category } from '@/lib/types'
+
+type PageProps = {
+    params: Promise<{
+        slug: string;
+    }>
+};
+
+
+async function getCategoryInformation(category: string) {
     const res = await fetch(`https://openapi.programming-hero.com/api/bazardor/categories/${category}`)
     return await res.json()
 }
 
-async function getProductOfCertainCategory(category) {
+async function getProductOfCertainCategory(category: string) {
     const res = await fetch(`https://openapi.programming-hero.com/api/bazardor/products?category=${category}`)
     return await res.json()
 }
 
-export default async function page({ params }) {
+export default async function page({ params }: PageProps) {
     const { slug } = await params
+
+console.log('slug', slug)
     const categoryInfo = await getCategoryInformation(slug)
     console.log('categoryInfo: ', categoryInfo)
     const products = await getProductOfCertainCategory(slug)

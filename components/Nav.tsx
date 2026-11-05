@@ -1,12 +1,24 @@
 import Image from 'next/image'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import AuthInNav from '@/components/AuthInNav'
 import type { Category } from '@/lib/types'
+import { cacheLife } from "next/cache";
+import TodayDate from './TodayDate'
 
 async function getCategories(): Promise<Category[]> {
+    "use cache"
+
+    cacheLife("hours");
+
     const res = await fetch('https://openapi.programming-hero.com/api/bazardor/categories', {
         cache: 'default'
     })
+
+     if (!res.ok) {
+        throw new Error("Failed to fetch categories");
+    }
+
     const data = await res.json()
 
     return data
@@ -15,17 +27,9 @@ async function getCategories(): Promise<Category[]> {
 export default async function Nav() {
 
     const categories = await getCategories()
-    console.log(categories)
 
     console.log('it is nav')
 
-    const todaysDate = new Date()
-    const todaysDateInBengali = todaysDate.toLocaleDateString("bn-BD", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-    })
 
     
 
@@ -39,11 +43,14 @@ export default async function Nav() {
                     </div>
                     <div className='flex flex-col items-start justify-between'>
                         <h3>বাজারদর</h3>
-                        <span>{todaysDateInBengali}</span>
+                        <Suspense fallback={<span></span>}>
+                        <TodayDate/>
+                        </Suspense>
                     </div>
                 </Link>
-
-                <AuthInNav/>
+                <Suspense fallback={<span></span>}>
+                    <AuthInNav/>
+                </Suspense>
 
             
             </div>

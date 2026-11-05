@@ -14,20 +14,22 @@ type SortProductsBy = {
         'দাম: বেশি থেকে কম': Product[]
 }
 
+type SortBy = keyof SortProductsBy
+
 export default function ProductGridForCategories({ products }: Props) {
-    const [sortBy, setSortBy] = useState<string>('ডিফল্ট')
+    const [sortBy, setSortBy] = useState<SortBy>('ডিফল্ট')
 
     const sortProductsBy: SortProductsBy = {
         'ডিফল্ট': products,
-        'দাম: কম থেকে বেশি': products.sort((a,b) => a.today < b.today),
-        'দাম: বেশি থেকে কম': products.sort((a,b) => a.today > b.today)
+        'দাম: কম থেকে বেশি': products.sort((a,b) => a.today - b.today),
+        'দাম: বেশি থেকে কম': products.sort((a,b) => b.today - a.today)
     }
 
   return (
     <div className='flex flex-col gap-4'>
         <div className='w-full p-4 flex items-center justify-end gap-2'>
             <span>সাজান</span>
-            <select defaultValue="ডিফল্ট" className="select" onChange={(e) => setSortBy(e.target.value)}>
+            <select defaultValue="ডিফল্ট" className="select" onChange={(e) => setSortBy(e.target.value as SortBy)}>
                 <option>ডিফল্ট</option>
                 <option>দাম: কম থেকে বেশি</option>
                 <option>দাম: বেশি থেকে কম</option>

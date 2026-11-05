@@ -1,8 +1,18 @@
 import React from 'react'
+import { cacheLife } from "next/cache";
 import type { Product } from '@/lib/types'
 
 async function getProducts(): Promise<Product[]> {
+  "use cache";
+
+    cacheLife("hours");
+
   const res = await fetch('https://openapi.programming-hero.com/api/bazardor/products')
+
+  if (!res.ok) {
+        throw new Error("Failed to fetch products");
+    }
+
   return await res.json()
 }
 

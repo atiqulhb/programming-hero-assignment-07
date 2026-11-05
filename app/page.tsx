@@ -13,7 +13,7 @@ export default async function Home() {
   
 
   return (
-    <div className="w-[80vw] mx-auto flex flex-col gap-10">
+    <div className="flex flex-col gap-10">
       <Hero/>
       <section className="">
         <h2><span className="text-error">▲</span> আজ দাম বেড়েছে</h2>

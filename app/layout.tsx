@@ -24,13 +24,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Nav/>
-        <PriceTicker/>
-        {children}
-        <Footer/>
+      <body className="min-h-dvh flex flex-col">
+        <header className="shrink-0">
+          <Nav/>
+          <PriceTicker/>
+        </header>
+        <main className="lg:w-[80vw] mx-auto flex-1">{children}</main>
+        <footer className="shrink-0">
+          <Footer/>
+        </footer>
       </body>
     </html>
   );

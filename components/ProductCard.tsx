@@ -2,19 +2,19 @@ import Link from 'next/link'
 
 export default function ProductCard({ product }) {
   return (
-    <Link href={`/${product.id}`} className="border border-base-300 rounded-2xl p-4 flex flex-col gap-3">
+    <Link href={`/categories/${product.slug}`} className="border border-base-300 rounded-2xl p-4 flex flex-col gap-3">
         <div className="flex gap-3">
-            <span className="w-12 h-12 flex items-center justify-center bg-base-200 rounded-xl">{product.image}</span>
+            <span className="w-12 h-12 flex items-center justify-center bg-base-200 rounded-xl text-2xl">{product.image}</span>
             <div>
                 <h3 className="text-base-content">{product.nameBn}</h3>
                 <span className="text-base-content">প্রতি {product.unit}</span>
             </div>
         </div>
-        <div className="flex items-baseline justify-between">
-        <div className="flex flex-col">
-            <span>আজকের দাম</span>
-            <span>{product.today} টাকা</span>
-        </div>
+        <div className="flex items-end justify-between">
+            <div className="flex flex-col">
+                <span>আজকের দাম</span>
+                <span>{product.today} টাকা</span>
+            </div>
             <span
                 className={`
                     px-2 py-1 rounded-xl bg-base-200

@@ -23,10 +23,10 @@ export default function SignIn() {
     };
 
   return (
-    <div className='w-md mx-auto px-4 py-10'>
-        <h2>সাইন ইন</h2>
+    <div className='w-md mx-auto px-4 py-10 bg-amber-200'>
+        <h2 className='font-bold text-center'>সাইন ইন</h2>
         <span>বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</span>
-        <Form className="flex w-96 flex-col gap-4 p-6 rounded-2xl bg-base-100" onSubmit={onSubmit}>
+        <Form className="flex flex-col gap-4 p-6 rounded-2xl bg-base-100" onSubmit={onSubmit}>
                    
               <TextField
                 isRequired
@@ -73,6 +73,10 @@ export default function SignIn() {
             <Button type="submit" className="w-full text-center bg-primary text-primary-content">
                সাইন
             </Button>
+            <span>অথবা</span>
+            <div>
+              
+            </div>
             </Form>
     </div>
   )

@@ -1,7 +1,9 @@
 "use client";
 
+import SocialSignInSignUp from "@/components/SocialSignInSignUp";
 import { signUp } from "@/lib/auth-client";
-import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
+import {Button, Description, FieldError, Form, Input, Label, TextField, toast} from "@heroui/react";
+import Link from "next/link";
 import React, { FormEvent } from "react";
 
 export default function Basic() {
@@ -20,16 +22,18 @@ export default function Basic() {
         });
 
         console.log(resData, error)
+
+        if (error) toast.danger(error.message)
     };
 
   return (
-    <div className="flex-1 bg-base-300">
-        <div className="w-md mx-auto flex flex-col gap-6 px-4 py-6 ">
+    <div>
+        <div className="w-lg mx-auto flex flex-col gap-6 px-4 py-6 ">
             <div className="flex flex-col">
                 <h3 className="text-center">অ্যাকাউন্ট তৈরি করুন</h3>
                 <span className="text-center">বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।</span>
             </div>
-        <Form className="flex w-96 flex-col gap-4 p-6 rounded-2xl bg-base-100" onSubmit={onSubmit}>
+        <Form className="flex flex-col gap-4 p-6 rounded-2xl bg-base-100" onSubmit={onSubmit}>
             <TextField
                 isRequired
                 name="name"
@@ -83,6 +87,12 @@ export default function Basic() {
     <Button type="submit" className="w-full text-center bg-primary text-primary-content">
         অ্যাকাউন্ট তৈরি করুন
     </Button>
+    <span className="text-center">অথবা</span>
+    <SocialSignInSignUp/>
+    <div className="flex items-center justify-center gap-1.5">
+      <span>অ্যাকাউন্ট আছে? </span>
+      <Link href="/signin" className="text-primary">সাইন ইন করুন</Link>
+    </div>
     </Form>
     </div>
     </div>

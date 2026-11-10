@@ -1,7 +1,11 @@
 'use client'
 
 import {useEffect} from 'react'
+import Link from 'next/link'
+import SocialSignInSignUp from '@/components/SocialSignInSignUp'
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
+import {Persons} from "@gravity-ui/icons";
+import {toast} from "@heroui/react";
 import { signIn } from "@/lib/auth-client";
 
 export default function SignIn() {
@@ -20,12 +24,13 @@ export default function SignIn() {
 
         console.log('after submit', resData, error);
 
+        if (error) toast.danger(error.message)
     };
 
   return (
-    <div className='w-md mx-auto px-4 py-10 bg-amber-200'>
+    <div className='w-lg mx-auto px-4 py-10 flex flex-col gap-3'>
         <h2 className='font-bold text-center'>সাইন ইন</h2>
-        <span>বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</span>
+        <span className='w-full text-center'>বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</span>
         <Form className="flex flex-col gap-4 p-6 rounded-2xl bg-base-100" onSubmit={onSubmit}>
                    
               <TextField
@@ -73,10 +78,12 @@ export default function SignIn() {
             <Button type="submit" className="w-full text-center bg-primary text-primary-content">
                সাইন
             </Button>
-            <span>অথবা</span>
-            <div>
-              
-            </div>
+            <span className='text-center'>অথবা</span>
+                <SocialSignInSignUp/>
+              <div className="flex items-center justify-center gap-1.5">
+                  <span>অ্যাকাউন্ট নেই? </span>
+                  <Link href="/signup" className="text-primary">সাইন আপ করুন</Link>
+                </div>
             </Form>
     </div>
   )

@@ -3,6 +3,7 @@ import Nav from '@/components/Nav'
 import PriceTicker from "@/components/PriceTicker";
 import Footer from '@/components/Footer'
 import { Geist, Geist_Mono } from "next/font/google";
+import ToastProvider from "@/components/providers/ToastProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,9 +25,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
     >
       <body className="min-h-dvh flex flex-col">
+        <ToastProvider/>
         <header className="shrink-0">
           <Nav/>
           <PriceTicker/>

@@ -43,7 +43,7 @@ export default async function Home() {
         </div>
       </section>
       <section>
-        <h2>সব পণ্য</h2>
+        <h2 id="all-products">সব পণ্য</h2>
         <span>মোট {allProducts.length}টি পণ্য দেখানো হচ্ছে</span>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(360px,1fr))] gap-4">
           {allProducts.map((product) => (

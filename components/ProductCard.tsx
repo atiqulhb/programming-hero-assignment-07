@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Product } from '@/lib/types'
+import { unitToBn } from '@/lib/translate'
 
 type Props = {
     product: Product
@@ -11,14 +12,14 @@ export default function ProductCard({ product }: Props) {
         <div className="flex gap-3">
             <span className="w-12 h-12 flex items-center justify-center bg-base-200 rounded-xl text-2xl">{product.image}</span>
             <div>
-                <h3 className="text-base-content">{product.nameBn}</h3>
+                <h3 className="text-base-content text-md font-semibold">{product.nameBn}</h3>
                 <span className="text-base-content">প্রতি {product.unit}</span>
             </div>
         </div>
         <div className="flex items-end justify-between">
             <div className="flex flex-col">
                 <span>আজকের দাম</span>
-                <span>{product.today} টাকা</span>
+                <span><span className='text-xl font-bold text-base-content'>{product.today.toLocaleString('bn-BD')}</span> টাকা</span>
             </div>
             <span
                 className={`
@@ -26,7 +27,7 @@ export default function ProductCard({ product }: Props) {
                     ${product.change.dir === 'up' ? 'text-error' : product.change.dir === 'down' ? 'text-success' : 'text-base-content'}
                 `}
             >
-                {product.change.dir === 'up' ? '▲' : product.change.dir === 'down' ? '▼' : '-'} {product.change.pct}%
+                {product.change.dir === 'up' ? '▲' : product.change.dir === 'down' ? '▼' : '-'} {Math.abs(product.change.pct).toLocaleString('bn-BD')}%
             </span>
         </div>
     </Link>

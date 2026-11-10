@@ -1,23 +1,36 @@
 import { Suspense } from 'react'
 import type { Product } from '@/lib/types'
 import { cacheLife } from "next/cache";
+import { unitToBn } from '@/lib/translate';
+import { notFound } from 'next/navigation'
 
 type ComponentProps = {
     params: Promise<{ id: string }>
 }
 
-async function getProductInfo(id: string): Promise<Product> {
+async function getProductInfo(id: string): Promise<Product | null> {
     "use cache";
     
     cacheLife("hours");
         
     const res = await fetch(`https://openapi.programming-hero.com/api/bazardor/products/${id}`)
 
+    if (res.status === 404) {
+        return null
+    }
+
+
     if (!res.ok) {
         throw new Error("Failed to fetch products");
     }
 
-    return await res.json()
+    const data = await res.json()
+
+    if (data.error === 'Not found') {
+        return null
+    }
+
+    return data as Product
 }
 
 function priceCompare(today: number, yesterday: number) {
@@ -35,6 +48,10 @@ export default async function ProductDetails({ params }: ComponentProps) {
 
     const product = await getProductInfo(id)
 
+    if (!product) {
+        notFound()
+    }
+
     const minPrice = Math.min(...product.markets.map((market) => market.min))
     const maxPrice = Math.max(...product.markets.map((market) => market.max))
     const averagePrice = product.markets.reduce((sum, market) => sum + (market.min + market.max)/2, 0) / product.markets.length
@@ -47,15 +64,15 @@ export default async function ProductDetails({ params }: ComponentProps) {
                     <span className='w-10 h-10 flex items-center justify-center rounded-2xl bg-base-200'>{product.image}</span>
                 </div>
                 <div className='flex flex-col'>
-                    <h2>{product.nameBn}</h2>
-                    <span>প্রতি {product.unit} · {product.categoryNameBn}</span>
+                    <h2 className='text-3xl font-bold text-base-content'>{product.nameBn}</h2>
+                    <span>প্রতি {unitToBn[product.unit]} · {product.categoryNameBn}</span>
                     <span>গতকালের তুলনায় আজ দাম {priceCompare(product.today, product.yesterday)}</span>
                 </div>
             </div>
             <div className='flex flex-col items-center rounded-2xl bg-base-200 px-5 py-4'>
                 <span>আজকের দাম</span>
                 <h3 className='font-bold text-3xl text-base-content'>{product.today.toLocaleString('bn-BD')}</h3>
-                <span>টাকা / {product.unit}</span>
+                <span>টাকা / {unitToBn[product.unit]}</span>
                 <span>{product.change.pct.toLocaleString('bn-BD')}%</span>
             </div>
         </div>

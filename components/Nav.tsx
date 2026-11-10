@@ -1,28 +1,14 @@
+
+
 import Image from 'next/image'
 import { Suspense } from 'react'
 import Link from 'next/link'
+import CategoryNav from '@/components/CategoryNav'
 import AuthInNav from '@/components/AuthInNav'
-import type { Category } from '@/lib/types'
-import { cacheLife } from "next/cache";
 import TodayDate from './TodayDate'
+import { getCategories } from '@/lib/data'
 
-async function getCategories(): Promise<Category[]> {
-    "use cache"
 
-    cacheLife("hours");
-
-    const res = await fetch('https://openapi.programming-hero.com/api/bazardor/categories', {
-        cache: 'default'
-    })
-
-     if (!res.ok) {
-        throw new Error("Failed to fetch categories");
-    }
-
-    const data = await res.json()
-
-    return data
-}
 
 export default async function Nav() {
 
@@ -44,29 +30,20 @@ export default async function Nav() {
                     <div className='flex flex-col items-start justify-between'>
                         <h3>বাজারদর</h3>
                         <Suspense fallback={<span></span>}>
-                        <TodayDate/>
+                            <TodayDate/>
                         </Suspense>
                     </div>
                 </Link>
                 <Suspense fallback={<span></span>}>
                     <AuthInNav/>
                 </Suspense>
-
-            
             </div>
         </div>
         <div className='w-full border-b border-gray-300'>
             <div className='w-[80%] mx-auto'>
-                <ul className='flex gap-1 py-2'>
-                    {categories.map(({ id, nameBn, icon, slug }) => (
-                        <li key={id}>
-                            <Link href={`/categories/${slug}`} className='flex gap-px px-3'>
-                                <span>{icon}</span>
-                                <span>{nameBn}</span>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <Suspense fallback={<></>}>
+                    <CategoryNav categories={categories}/>
+                </Suspense>
             </div>
         </div>
         
